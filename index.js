@@ -251,10 +251,10 @@ const generateHTML = (pageName) => {
         <div class="cloud x5"></div>
     </div>
     <div class='c'>
-        <div class='_404'>Ce site est interdit pendant l'aide au devoir</div>
+        <div class='_404'>Ce site est interdit pendant l'aide aux devoirs</div>
         <hr>
-        <div class='_1'>Retour au devoir !</div>
-        <div class='_2'>Les études sont supérieur a ${pageName}</div>
+        <div class='_1'>Retour aux devoirs !</div>
+        <div class='_2'>Les études sont supérieur à ${pageName}</div>
     </div>
     `;
     return template;

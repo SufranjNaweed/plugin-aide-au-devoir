@@ -1,8 +1,7 @@
-console.log("plugin PAAD is on")
+// Definir la plage horaire ici :)
 
-const DEBUT = "12:50";
-const FIN = "14:05";
-
+const DEBUT = "18:00";
+const FIN = "19:30";
 
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
@@ -242,7 +241,7 @@ const generateSTYLES = () => {
 }
 
 const generateHTML = (pageName) => {
-    return `
+    const template = `
     <div id="clouds">
         <div class="cloud x1"></div>
         <div class="cloud x1_5"></div>
@@ -258,6 +257,7 @@ const generateHTML = (pageName) => {
         <div class='_2'>Les études sont supérieur a ${pageName}</div>
     </div>
     `;
+    return template;
 }
 
 const muteAudio = () => {

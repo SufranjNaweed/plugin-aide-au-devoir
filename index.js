@@ -1,7 +1,58 @@
 // Definir la plage horaire ici :)
 
-const DEBUT = "18:00";
+const DEBUT = "11:00";
 const FIN = "19:30";
+
+const currentURL = window.location.hostname;
+const config = {
+  DEBUT : "11:00",
+  FIN : "19:30",
+  day : 3, // mercredi
+  banlist : [
+    {
+      name : "SNAPCHAT",
+      URL : "www.snapchat.com",
+    },
+    {
+      name : "Youtube",
+      URL : "www.youtube.com",
+    },
+    {
+      name : "FACEBOOK",
+      URL : "www.facebook.com",
+    },
+    {
+      name : "INSTAGRAM",
+      URL : "www.instagram.com",
+    },
+    {
+      name : "TIKTOK",
+      URL : "www.tiktok.com",
+    },
+    {
+      name : "1V1",
+      URL : "www.1v1.lol",
+    },
+    {
+      name : "NETFLIX",
+      URL : "www.netflix.com",
+    },
+    {
+      name : "ROBLOX",
+      URL : "www.roblox.com",
+    },
+    {
+      name : "DISCORD",
+      URL : "www.discord.com",
+    },
+    {
+      name : "SPOTIFY",
+      URL : "www.spotify.com",
+    },
+  ]
+}
+
+const activatedDay = 3 // Mercredi
 
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
@@ -251,7 +302,7 @@ const generateHTML = (pageName) => {
         <div class="cloud x5"></div>
     </div>
     <div class='c'>
-        <div class='_404'>Ce site est interdit pendant l'aide aux devoirs</div>
+        <div class='_404'>Ce site est interdit</div>
         <hr>
         <div class='_1'>Retour aux devoirs !</div>
         <div class='_2'>Les études sont supérieur à ${pageName}</div>
@@ -274,48 +325,60 @@ const getCurrentTime = () => {
     let hours = date.getHours();
     let minutes = date.getMinutes();
     const currentTime = hours + ':' + minutes;
-    console.log("🚀 ~ file: index.js:273 ~ setIntervalTime ~ currentTime:", currentTime);
     return currentTime;
 }
 
 const main = (pageName) => {
     const time = getCurrentTime();
+    const date = new Date();
+    let day = date.getDay();
     if (time < DEBUT || time > FIN){
         console.log("vous n'est pas dans l'interval du PAAD");
     }
     else{
+      if(activatedDay == day){
         document.head.innerHTML = generateSTYLES();
         document.body.innerHTML = generateHTML(pageName);
         muteAudio(); 
+      }
     }
 }
-  
-switch(window.location.hostname){
-    case "www.youtube.com":
-        main("YOUTUBE");
-    break;
-    case "www.facebook.com":
-        main("FACEBOOK");
-    break;
-    case "www.instagram.com":
-        main("INSTAGRAM");
-        break;
-    case "www.tiktok.com":
-        main("TIKTOK");
-        break;
-    case "www.1v1.lol":
-        main("1V1");
-    break;
-    case "www.netflix.com":
-        main("NETFLIX");
-    break;
-    case "www.roblox.com":
-        main("ROBLOX");
-    break;
-    case "discord.com":
-        main("DISCORD");
-    break;
-    case "www.spotify.com":
-        main("SPOTIFY")
-    break;
+
+for(let i = 0; i <= config.banlist.length(); i++){
+  if(config.banlist[i].URL == currentURL){
+    main(config.banlist[i].name)
+  }
 }
+
+// switch(window.location.hostname){
+//     case "www.snapchat.com":
+//         main("SNAPCHAT")
+//     break
+//     case "www.youtube.com":
+//         main("YOUTUBE");
+//     break;
+//     case "www.facebook.com":
+//         main("FACEBOOK");
+//     break;
+//     case "www.instagram.com":
+//         main("INSTAGRAM");
+//         break;
+//     case "www.tiktok.com":
+//         main("TIKTOK");
+//         break;
+//     case "www.1v1.lol":
+//         main("1V1");
+//     break;
+//     case "www.netflix.com":
+//         main("NETFLIX");
+//     break;
+//     case "www.roblox.com":
+//         main("ROBLOX");
+//     break;
+//     case "www.discord.com":
+//         main("DISCORD");
+//     break;
+//     case "www.spotify.com":
+//         main("SPOTIFY")
+//     break;
+// }

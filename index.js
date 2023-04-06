@@ -1,10 +1,7 @@
-// Definir la plage horaire ici :)
-
 const currentURL = window.location.hostname;
 const config = {
   DEBUT : "10:00",
   FIN : "19:30",
-  day : 3, // mercredi
   banlist : [
     {
       name : "SNAPCHAT",
@@ -58,6 +55,7 @@ const Semaine = {
   Samedi : 6,
   Dimanche : 7
 }
+
 // GENERATE CSS / STYLE
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
@@ -295,6 +293,7 @@ const generateSTYLES = () => {
     }
      </style>`;
 }
+
 // GENERATE HTML
 const generateHTML = (pageName) => {
     const template = `
@@ -315,6 +314,7 @@ const generateHTML = (pageName) => {
     `;
     return template;
 }
+
 // CUT SOUND
 const muteAudio = () => {
     console.log('mute tous les audios...');
@@ -324,6 +324,7 @@ const muteAudio = () => {
       video[i].muted = true;
     } 
 }
+
 // GET Current Time
 const getCurrentTime = () => {
     const date = new Date();
@@ -338,15 +339,19 @@ const main = (pageName) => {
     const time = getCurrentTime();
     const date = new Date();
     let day = date.getDay();
+    // Jours de surveillance
+    const daysofwatch = [Semaine.Mercredi, Semaine.Vendredi];
     if (time < config.DEBUT || time > config.FIN){
         console.log("vous n'est pas dans l'interval du PAAD");
     }
     else{
-      if(Semaine.Jeudi == day){
-        document.head.innerHTML = generateSTYLES();
-        document.body.innerHTML = generateHTML(pageName);
-        muteAudio(); 
-      }
+      daysofwatch.forEach(dow => {
+        if(dow == day){
+          document.head.innerHTML = generateSTYLES();
+          document.body.innerHTML = generateHTML(pageName);
+          muteAudio(); 
+        }
+      })
     }
 }
 
@@ -355,4 +360,4 @@ config.banlist.forEach(ban => {
   if(ban.URL == currentURL){
     main(ban.name)
   }
-})
+});

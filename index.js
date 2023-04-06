@@ -1,11 +1,8 @@
 // Definir la plage horaire ici :)
 
-const DEBUT = "11:00";
-const FIN = "19:30";
-
 const currentURL = window.location.hostname;
 const config = {
-  DEBUT : "11:00",
+  DEBUT : "10:00",
   FIN : "19:30",
   day : 3, // mercredi
   banlist : [
@@ -52,8 +49,16 @@ const config = {
   ]
 }
 
-const activatedDay = 3 // Mercredi
-
+const Semaine = {
+  Lundi : 1, 
+  Mardi : 2,
+  Mercredi : 3,
+  Jeudi : 4,
+  Vendredi : 5, 
+  Samedi : 6,
+  Dimanche : 7
+}
+// GENERATE CSS / STYLE
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
     body {
@@ -290,7 +295,7 @@ const generateSTYLES = () => {
     }
      </style>`;
 }
-
+// GENERATE HTML
 const generateHTML = (pageName) => {
     const template = `
     <div id="clouds">
@@ -310,7 +315,7 @@ const generateHTML = (pageName) => {
     `;
     return template;
 }
-
+// CUT SOUND
 const muteAudio = () => {
     console.log('mute tous les audios...');
     var video = document.getElementsByTagName('video'),
@@ -319,7 +324,7 @@ const muteAudio = () => {
       video[i].muted = true;
     } 
 }
-
+// GET Current Time
 const getCurrentTime = () => {
     const date = new Date();
     let hours = date.getHours();
@@ -328,15 +333,16 @@ const getCurrentTime = () => {
     return currentTime;
 }
 
+// SETUP ALL
 const main = (pageName) => {
     const time = getCurrentTime();
     const date = new Date();
     let day = date.getDay();
-    if (time < DEBUT || time > FIN){
+    if (time < config.DEBUT || time > config.FIN){
         console.log("vous n'est pas dans l'interval du PAAD");
     }
     else{
-      if(activatedDay == day){
+      if(Semaine.Jeudi == day){
         document.head.innerHTML = generateSTYLES();
         document.body.innerHTML = generateHTML(pageName);
         muteAudio(); 
@@ -344,41 +350,9 @@ const main = (pageName) => {
     }
 }
 
-for(let i = 0; i <= config.banlist.length(); i++){
-  if(config.banlist[i].URL == currentURL){
-    main(config.banlist[i].name)
+// START PROGRAMME
+config.banlist.forEach(ban => {
+  if(ban.URL == currentURL){
+    main(ban.name)
   }
-}
-
-// switch(window.location.hostname){
-//     case "www.snapchat.com":
-//         main("SNAPCHAT")
-//     break
-//     case "www.youtube.com":
-//         main("YOUTUBE");
-//     break;
-//     case "www.facebook.com":
-//         main("FACEBOOK");
-//     break;
-//     case "www.instagram.com":
-//         main("INSTAGRAM");
-//         break;
-//     case "www.tiktok.com":
-//         main("TIKTOK");
-//         break;
-//     case "www.1v1.lol":
-//         main("1V1");
-//     break;
-//     case "www.netflix.com":
-//         main("NETFLIX");
-//     break;
-//     case "www.roblox.com":
-//         main("ROBLOX");
-//     break;
-//     case "www.discord.com":
-//         main("DISCORD");
-//     break;
-//     case "www.spotify.com":
-//         main("SPOTIFY")
-//     break;
-// }
+})
